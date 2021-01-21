@@ -9,6 +9,7 @@
 	<div th:if="${usernameError}">Пользователь с таким именем уже существует.</div>
 	<div th:if="${emptyFieldsError}">Для регистрации заполните все поля.</div>
 	<div th:if="${notMatchingPasswordsError}">Не совпадают пароли. Попробуйте еще раз.</div>
+	<div th:if="${emailCheckingError}">Проверьте адрес электронной почты. Он должен содержать символ "@".</div>
 	<form th:action="@{/registration}" method="post">
 		<div>
 			<label> Имя пользователя: <input type="text" name="username" />
