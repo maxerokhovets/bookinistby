@@ -42,7 +42,7 @@ public class CustomAuthProvider implements AuthenticationProvider {
 	
 	private Collection<GrantedAuthority> getGrantedAuthorities(User user){
 		Collection<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
-		if (user.getRole().equals("ADMIN")) {
+		if (user.getRole().equals("admin")) {
 			grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 		}else {
 		grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));	

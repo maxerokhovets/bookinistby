@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>[[${#httpServletRequest.remoteUser}]]</title>
+</head>
+<body>
+	<h1>[[${#httpServletRequest.remoteUser}]]</h1>
+	<p> <form th:if="${adminFlag}" th:action="@{/adminpanel}" method="post">
+		<input type="submit" value="Панель администратора" />
+	</form></p>
+	<p><form th:action="@{/challenge(username=${#httpServletRequest.remoteUser})}" method="post">
+		<input type="submit" value="Добавить книгу" />
+	</form></p>
+	<p><form th:action="@{/challenges}" method="post">
+		<input type="submit" value="Избранное" />
+	</form></p>
+	<p><form th:action="@{/logout}" method="post">
+		<input type="submit" value="Выйти" />
+	</form></p>
+</body>
+</html>

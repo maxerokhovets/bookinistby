@@ -19,7 +19,7 @@
 	</p>
 
 	<form th:if="${#httpServletRequest.getUserPrincipal()}!=null"
-		th:action="@{/profile}" method="get">
+		th:action="@{/profile}" method="post">
 		<input type="submit" value="Профиль" />
 	</form>
 
