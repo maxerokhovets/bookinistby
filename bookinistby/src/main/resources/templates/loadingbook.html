@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Добавить книгу - Bookinist.by</title>
+</head>
+<body>
+	<h1>Ваша книга</h1>
+	<form th:action="@{/profile/addbook}" method="post">
+		<div>
+			<label> Название: <input type="text" name="title" size="50"/>
+			</label>
+		</div>
+		<div>
+			<label> Автор: <input type="text" name="author" size="50"/>
+			</label>
+		</div>
+		<div>
+			<label> Описание: <textarea name="description" cols="50" rows="10" ></textarea>
+			</label>
+		</div>
+		<div><label>Тип объявления:<select name="adType">
+  					<option  th:value="free">Бесплатно</option>
+  					<option  th:value="fixprize">Фиксированная цена</option>
+  					<option  th:value="auction">Аукцион</option>
+				</select> 
+				</label>
+		</div>		
+		<div>
+			<label> Цена: <input type="number" name="price"/>
+			</label>	
+		</div>
+		<div>
+			<label> Время окончания аукциона: <input type="datetime-local" name="endTimeOfAuction"/>
+			</label>	
+		</div>
+		<div>
+			<input type="submit" value="Добавить"/>
+		</div>
+	</form>
+</body>
+</html>

@@ -3,15 +3,18 @@
 	xmlns:th="https://www.thymeleaf.org"
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-<title>[[${#httpServletRequest.remoteUser}]]</title>
+<title>[[${#httpServletRequest.remoteUser}]] - Bookinist.by</title>
 </head>
 <body>
 	<h1>[[${#httpServletRequest.remoteUser}]]</h1>
 	<p> <form th:if="${adminFlag}" th:action="@{/adminpanel}" method="post">
 		<input type="submit" value="Панель администратора" />
 	</form></p>
-	<p><form th:action="@{/challenge(username=${#httpServletRequest.remoteUser})}" method="post">
+	<p><form th:action="@{/profile/loadingbook}" method="post">
 		<input type="submit" value="Добавить книгу" />
+	</form></p>
+	<p><form th:action="@{/challenges}" method="post">
+		<input type="submit" value="Мои книги" />
 	</form></p>
 	<p><form th:action="@{/challenges}" method="post">
 		<input type="submit" value="Избранное" />
