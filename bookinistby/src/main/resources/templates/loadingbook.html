@@ -7,7 +7,7 @@
 </head>
 <body>
 	<h1>Ваша книга</h1>
-	<form th:action="@{/profile/addbook}" method="post">
+	<form th:action="@{/profile/addbook}" th:object="${filesFromForm}" method="post">
 		<div>
 			<label> Название: <input type="text" name="title" size="50"/>
 			</label>
@@ -20,6 +20,11 @@
 			<label> Описание: <textarea name="description" cols="50" rows="10" ></textarea>
 			</label>
 		</div>
+		<div>
+			<label> Добавить изображения: <input type="file" name="photos" th:field="*{files}" 
+		      title="Загрузите одну или несколько фотографий" required multiple>
+			</label>
+		</div>
 		<div><label>Тип объявления:<select name="adType">
   					<option  th:value="free">Бесплатно</option>
   					<option  th:value="fixprize">Фиксированная цена</option>
@@ -28,7 +33,7 @@
 				</label>
 		</div>		
 		<div>
-			<label> Цена: <input type="number" name="price"/>
+			<label> Цена, руб: <input type="number" name="price"/>
 			</label>	
 		</div>
 		<div>
@@ -36,7 +41,7 @@
 			</label>	
 		</div>
 		<div>
-			<input type="submit" value="Добавить"/>
+			<input type="submit" value="Добавить книгу"/>
 		</div>
 	</form>
 </body>
