@@ -1,17 +1,8 @@
 package com.nucldev.bookinistby.controllers;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.nio.file.FileSystem;
 import java.nio.file.Files;
-import java.nio.file.LinkOption;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.WatchKey;
-import java.nio.file.WatchService;
-import java.nio.file.WatchEvent.Kind;
-import java.nio.file.WatchEvent.Modifier;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -24,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -45,7 +37,7 @@ public class LoadingBookController {
 	@Autowired
 	PhotoRepository photoRepository;
 	
-	@PostMapping("/profile/loadingbook")
+	@GetMapping("/profile/loadingbook")
 	public String loadingBooks(Model model) {
 		FilesFromForm filesFromForm = new FilesFromForm();
 		model.addAttribute("filesFromForm", filesFromForm);
@@ -55,43 +47,61 @@ public class LoadingBookController {
 	@PostMapping("/profile/addbook")
 	public String addBook(String title, String author, String description,
 			String adType, Integer price, String endTimeOfAuction,
-			@ModelAttribute(value = "filesFromForm") FilesFromForm filesFromForm){
-		Book book = new Book();
-		book.setTitle(title);
-		book.setAuthor(author);
-		book.setDescription(description);
-		book.setAdType(adType);
-		UUID uuid = UUID.randomUUID();
-		book.setUuid(uuid);
-		if (!adType.equals("free")) {
-			book.setPrice(price);	
-		}
-		if (adType.equals("auction")) {
-			book.setEndTimeOfAuction(convertStringInDate(endTimeOfAuction));
-		}
-		book.setUsername(httpServletRequest.getRemoteUser());
-		bookRepository.save(book);
-		List<Photo> photos = new ArrayList<>();
-		for (int i = 0; i < filesFromForm.getFiles().size(); i++) {
-			String str="";
-			try {
-				str = Files.probeContentType(Paths.get(filesFromForm.getFiles().get(i).getAbsolutePath()));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if (str!=null) {
-				String[] strings =str.split("/");
-				if (strings[0].equals("image")) {
-					Photo photo = new Photo();
-					photo.setBookUuid(uuid);
-					photo.setPhoto(filesFromForm.getFiles().get(i));
-					photos.add(photo);
+			@ModelAttribute(value = "filesFromForm") FilesFromForm filesFromForm,
+			Model model){
+		if (title.equals("") | author.equals("")) {
+			model.addAttribute("titleOrAuthorEmptyError", true);
+		return "loadingbook";
+		}else {
+			if (adType.equals("auction") & endTimeOfAuction.equals("")) {
+				model.addAttribute("endTimeOfAuctionError", true);
+				return "loadingbook";
+			}else {
+				Book book = new Book();
+				book.setTitle(title);
+				book.setAuthor(author);
+				book.setDescription(description);
+				book.setAdType(adType);
+				UUID uuid = UUID.randomUUID();
+				book.setUuid(uuid);
+				if (!adType.equals("free")) {
+					book.setPrice(price);	
 				}
+				if (adType.equals("auction")) {
+					book.setEndTimeOfAuction(convertStringInDate(endTimeOfAuction));
+				}
+				book.setUsername(httpServletRequest.getRemoteUser());
+				bookRepository.save(book);
+				List<Photo> photos = new ArrayList<>();
+				for (int i = 0; i < filesFromForm.getFiles().size(); i++) {
+					String str="";
+					try {
+						str = Files.probeContentType(Paths.get(filesFromForm.getFiles().get(i).getAbsolutePath()));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if (str!=null) {
+						String[] strings =str.split("/");
+						if (strings[0].equals("image")) {
+							Photo photo = new Photo();
+							photo.setBookUuid(uuid);
+							photo.setPhoto(filesFromForm.getFiles().get(i));
+							photos.add(photo);
+						}
+					}
+				}
+				photoRepository.saveAll(photos);
+				
+				List<Book> myBooks = bookRepository.findByUsername(httpServletRequest.getRemoteUser());
+				if (myBooks.size()!=0) {
+					model.addAttribute("mybooks", myBooks);
+				}else {
+					model.addAttribute("emtyMyBooksList", true);
+				}
+				return "redirect:/profile/mybooks";
 			}
 		}
-		photoRepository.saveAll(photos);
-		return "mybooks";
 	}
 	
 	private static Date convertStringInDate (String dateString) {

@@ -19,7 +19,7 @@
 	</p>
 
 	<form th:if="${#httpServletRequest.getUserPrincipal()}!=null"
-		th:action="@{/profile}" method="post">
+		th:action="@{/profile}" method="get">
 		<input type="submit" value="Профиль" />
 	</form>
 
@@ -29,7 +29,16 @@
 		<input type="submit" value="Выйти" />
 	</form>
 	</p>
-
+	
+	<table>
+	<tbody>
+	<h3 th:if="${emptyList}">Книг нет</h3>
+	<tr th:each="book : ${books}">
+            <td><p><a th:href="@{/book(bookId=${book.id})}">[[${book.title}]]<br>[[${book.author}]]</a></p></td>           
+    </tr>
+    </tbody>
+    </table>
+	
 
 </body>
 </html>

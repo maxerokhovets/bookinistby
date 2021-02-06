@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Мои книги - Bookinist.by</title>
 </head>
 <body>
-
+<h1>Мои книги</h1>
+	<table>
+	<tbody>
+	<h3 th:if="${emptyMyBooksList}">Вы не добавляли книг</h3>
+	<form th:if="${emptyMyBooksList}" th:action="@{/profile/loadingbook}" method="get">
+		<input type="submit" value="Добавить книгу" />
+	</form>
+	<tr th:each="book : ${mybooks}">
+            <td><p><a th:href="@{/book(bookId=${book.id})}">[[${book.title}]]<br>[[${book.author}]]</a></p></td>           
+    </tr>
+    </tbody>
+    </table>	
 </body>
 </html>

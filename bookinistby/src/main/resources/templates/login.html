@@ -6,7 +6,8 @@
 <title>Вход - Bookinist.by</title>
 </head>
 <body>
-	<div th:if="${param.error}">Неправильное имя пользователя или пароль.</div>
+	<div th:if="${param.error}">Неправильное имя пользователя или
+		пароль.</div>
 	<div th:if="${param.logout}">Вы вышли из учетной записи.</div>
 	<form th:action="@{/login}" method="post">
 		<div>
@@ -22,7 +23,8 @@
 		</div>
 	</form>
 	<p>
-		Нажмите <a th:href="@{/registration}">здесь</a> чтобы зарегестрироваться.
+		Нажмите <a th:href="@{/registration}">здесь</a> чтобы
+		зарегестрироваться.
 	</p>
 </body>
 </html>

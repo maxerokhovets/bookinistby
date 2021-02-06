@@ -7,20 +7,25 @@
 </head>
 <body>
 	<h1>[[${#httpServletRequest.remoteUser}]]</h1>
-	<p> <form th:if="${adminFlag}" th:action="@{/adminpanel}" method="post">
-		<input type="submit" value="Панель администратора" />
-	</form></p>
-	<p><form th:action="@{/profile/loadingbook}" method="post">
+	<p>
+	<form th:action="@{/profile/loadingbook}" method="get">
 		<input type="submit" value="Добавить книгу" />
-	</form></p>
-	<p><form th:action="@{/challenges}" method="post">
+	</form>
+	</p>
+	<p>
+	<form th:action="@{profile/mybooks}" method="get">
 		<input type="submit" value="Мои книги" />
-	</form></p>
-	<p><form th:action="@{/challenges}" method="post">
+	</form>
+	</p>
+	<p>
+	<form th:action="@{/challenges}" method="post">
 		<input type="submit" value="Избранное" />
-	</form></p>
-	<p><form th:action="@{/logout}" method="post">
+	</form>
+	</p>
+	<p>
+	<form th:action="@{/logout}" method="post">
 		<input type="submit" value="Выйти" />
-	</form></p>
+	</form>
+	</p>
 </body>
 </html>

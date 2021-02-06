@@ -7,41 +7,46 @@
 </head>
 <body>
 	<h1>Ваша книга</h1>
+	<div th:if="${titleOrAuthorEmptyError}">Для добавления книги введите имя автора и назавние.</div>
+	<div th:if="${endTimeOfAuctionError}">Задайте время окончания аукциона.</div>
 	<form th:action="@{/profile/addbook}" th:object="${filesFromForm}" method="post">
 		<div>
-			<label> Название: <input type="text" name="title" size="50"/>
+			<label> Название: <input type="text" name="title" size="50" />
 			</label>
 		</div>
 		<div>
-			<label> Автор: <input type="text" name="author" size="50"/>
+			<label> Автор: <input type="text" name="author" size="50" />
 			</label>
 		</div>
 		<div>
-			<label> Описание: <textarea name="description" cols="50" rows="10" ></textarea>
+			<label> Описание: <textarea name="description" cols="50"
+					rows="10"></textarea>
 			</label>
 		</div>
 		<div>
-			<label> Добавить изображения: <input type="file" name="photos" th:field="*{files}" 
-		      title="Загрузите одну или несколько фотографий" required multiple>
+			<label> Добавить изображения: <input type="file"
+				name="photos" th:field="*{files}" required multiple>
 			</label>
 		</div>
-		<div><label>Тип объявления:<select name="adType">
-  					<option  th:value="free">Бесплатно</option>
-  					<option  th:value="fixprize">Фиксированная цена</option>
-  					<option  th:value="auction">Аукцион</option>
-				</select> 
-				</label>
-		</div>		
 		<div>
-			<label> Цена, руб: <input type="number" name="price"/>
-			</label>	
+			<label>Тип объявления:<select name="adType">
+					<option th:value="free">Бесплатно</option>
+					<option th:value="fixprize">Фиксированная цена</option>
+					<option th:value="auction">Аукцион</option>
+			</select>
+			</label>
 		</div>
 		<div>
-			<label> Время окончания аукциона: <input type="datetime-local" name="endTimeOfAuction"/>
-			</label>	
+			<label> Цена, руб: <input type="number" name="price" />
+			</label>
 		</div>
 		<div>
-			<input type="submit" value="Добавить книгу"/>
+			<label> Время окончания аукциона: <input
+				type="datetime-local" name="endTimeOfAuction" />
+			</label>
+		</div>
+		<div>
+			<input type="submit" value="Добавить книгу" />
 		</div>
 	</form>
 </body>
