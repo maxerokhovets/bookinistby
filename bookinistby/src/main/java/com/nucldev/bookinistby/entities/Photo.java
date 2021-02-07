@@ -18,8 +18,8 @@ public class Photo {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	
-	@Lob
-	private File photo;
+	
+	private String photoUrl;
 	private UUID bookUuid;
 	
 	public Photo() {
@@ -33,14 +33,6 @@ public class Photo {
 		this.id = id;
 	}
 
-	public File getPhoto() {
-		return photo;
-	}
-
-	public void setPhoto(File photo) {
-		this.photo = photo;
-	}
-
 	public UUID getBookUuid() {
 		return bookUuid;
 	}
@@ -48,5 +40,12 @@ public class Photo {
 	public void setBookUuid(UUID bookUuid) {
 		this.bookUuid = bookUuid;
 	}
-	
+
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
+	}
 }

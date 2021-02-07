@@ -9,7 +9,7 @@
 	<h1>Ваша книга</h1>
 	<div th:if="${titleOrAuthorEmptyError}">Для добавления книги введите имя автора и назавние.</div>
 	<div th:if="${endTimeOfAuctionError}">Задайте время окончания аукциона.</div>
-	<form th:action="@{/profile/addbook}" th:object="${filesFromForm}" method="post">
+	<form th:action="@{/profile/addbook}" th:object="${filesFromForm}" enctype="multipart/form-data" method="post">
 		<div>
 			<label> Название: <input type="text" name="title" size="50" />
 			</label>

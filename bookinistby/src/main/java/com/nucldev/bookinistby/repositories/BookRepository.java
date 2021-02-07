@@ -8,4 +8,5 @@ import com.nucldev.bookinistby.entities.Book;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
 	List<Book> findByUsername(String username);
+	Book findBookById(Long id);
 }

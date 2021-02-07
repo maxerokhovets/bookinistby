@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.amazonaws.AmazonServiceException;
 import com.nucldev.bookinistby.entities.Book;
 import com.nucldev.bookinistby.entities.Photo;
 import com.nucldev.bookinistby.repositories.BookRepository;
 import com.nucldev.bookinistby.repositories.PhotoRepository;
+import com.nucldev.bookinistby.service.AmazonClient;
 import com.nucldev.bookinistby.service.FilesFromForm;
 
 @Controller
@@ -36,6 +38,9 @@ public class LoadingBookController {
 	
 	@Autowired
 	PhotoRepository photoRepository;
+	
+	@Autowired
+	AmazonClient amazonClient;
 	
 	@GetMapping("/profile/loadingbook")
 	public String loadingBooks(Model model) {
@@ -76,7 +81,7 @@ public class LoadingBookController {
 				for (int i = 0; i < filesFromForm.getFiles().size(); i++) {
 					String str="";
 					try {
-						str = Files.probeContentType(Paths.get(filesFromForm.getFiles().get(i).getAbsolutePath()));
+						str = Files.probeContentType(Paths.get(amazonClient.convertMultiPartToFile(filesFromForm.getFiles().get(i)).getAbsolutePath()));
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -86,7 +91,12 @@ public class LoadingBookController {
 						if (strings[0].equals("image")) {
 							Photo photo = new Photo();
 							photo.setBookUuid(uuid);
-							photo.setPhoto(filesFromForm.getFiles().get(i));
+							try {
+								photo.setPhotoUrl(amazonClient.uploadFile(filesFromForm.getFiles().get(i)));
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 							photos.add(photo);
 						}
 					}
