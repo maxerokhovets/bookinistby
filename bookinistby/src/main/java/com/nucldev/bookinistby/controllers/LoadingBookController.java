@@ -67,6 +67,18 @@ public class LoadingBookController {
 				book.setAuthor(author);
 				book.setDescription(description);
 				book.setAdType(adType);
+				switch (adType) {
+				case "free":
+					book.setAdTypeRus("бесплатно");
+					break;
+				case "fixprize":
+					book.setAdTypeRus("фиксированная цена");
+					break;
+				case "auction":
+					book.setAdTypeRus("аукцион");
+					break;	
+				}
+				book.setStatus("открыто");
 				UUID uuid = UUID.randomUUID();
 				book.setUuid(uuid);
 				if (!adType.equals("free")) {

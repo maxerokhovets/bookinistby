@@ -2,6 +2,8 @@ package com.nucldev.bookinistby.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +23,9 @@ public class BookController {
 	BookRepository bookRepository;
 	
 	@Autowired
+	HttpServletRequest httpServletRequest;
+	
+	@Autowired
 	PhotoRepository photoRepository;
 	
 	@GetMapping("/book")
@@ -28,9 +33,9 @@ public class BookController {
 		Book book = bookRepository.findBookById(bookId);
 		model.addAttribute("book", book);
 		List<Photo> photos = photoRepository.findByBookUuid(book.getUuid());
-		if (photos.size()!=0) {
-			String photoUrlString = photos.get(0).getPhotoUrl();
-			model.addAttribute("url", photoUrlString);
+		model.addAttribute("photos", photos);
+		if (httpServletRequest.getRemoteUser()!= null && httpServletRequest.getRemoteUser().equals(book.getUsername())) {
+			model.addAttribute("thisUserBookFlag", true);
 		}
 		return "book";
 		

@@ -10,7 +10,7 @@
 	<table>
 	<tbody>
 	<h3 th:if="${emptyMyBooksList}">Вы не добавляли книг</h3>
-	<form th:if="${emptyMyBooksList}" th:action="@{/profile/loadingbook}" method="get">
+	<form th:action="@{/profile/loadingbook}" method="get">
 		<input type="submit" value="Добавить книгу" />
 	</form>
 	<tr th:each="book : ${mybooks}">

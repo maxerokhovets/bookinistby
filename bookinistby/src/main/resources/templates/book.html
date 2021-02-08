@@ -9,7 +9,28 @@
 	<h1>[[${book.title}]]</h1>
 	<h2>[[${book.author}]]</h2>
 	
-	<p><img th:src="@{https://s3.amazonaws.com /bookinistbyimages-bucket/1612731734473-sud_minsk-4fprj.jpg}" alt=""/></p>
-	<p>[[${url}]]</p>
+	<tbody>
+	<tr th:each="photo : ${photos}">
+            <td><p><img th:src="@{${photo.photoUrl}}"/></p></td>           
+    </tr>
+    </tbody>
+    </table>
+    
+	<h3>[[${book.description}]]</h3>
+	<p>Владелец: <a th:href="@{/user(username=${book.username})}">[[${book.username}]]</a></p>
+	<p>Тип объявления: [[${book.adTypeRus}]]</p>
+	<p>Статус: [[${book.status}]]</p>
+	<p>Цена: [[${book.price}]] руб.</p>	
+	<p>Наибольшая ставка: <a th:href="@{/user(username=${book.maxBetUsername})}">[[${book.maxBetUsername}]]</a></p>	
+	
+	<form th:if="${thisUserBookFlag}"
+		th:action="@{/close}" method="get">
+		<input type="submit" value="Закрыть объявление" />
+	</form>
+	<p></p>
+	<form th:if="${thisUserBookFlag}"
+		th:action="@{/redact}" method="get">
+		<input type="submit" value="Редактировать" />
+	</form>
 </body>
 </html>

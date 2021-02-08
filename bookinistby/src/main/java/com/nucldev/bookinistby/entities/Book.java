@@ -34,9 +34,11 @@ public class Book {
 	private String maxBetUsername;
 	
 	private String adType;
+	private String adTypeRus;
 	private Integer price;
 	private Date endTimeOfAuction;
 	private UUID uuid;
+	private String status;
 	
 	public Book() {
 	}
@@ -119,6 +121,22 @@ public class Book {
 
 	public void setUuid(UUID uuid) {
 		this.uuid = uuid;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getAdTypeRus() {
+		return adTypeRus;
+	}
+
+	public void setAdTypeRus(String adTypeRus) {
+		this.adTypeRus = adTypeRus;
 	}
 	
 }
