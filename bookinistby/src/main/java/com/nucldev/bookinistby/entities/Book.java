@@ -1,6 +1,7 @@
 package com.nucldev.bookinistby.entities;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -8,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -35,10 +37,14 @@ public class Book {
 	
 	private String adType;
 	private String adTypeRus;
+	private Date creationDate;
 	private Integer price;
 	private Date endTimeOfAuction;
 	private UUID uuid;
 	private String status;
+	
+	@OneToMany
+	private List<Comment> comments;
 	
 	public Book() {
 	}
@@ -138,5 +144,21 @@ public class Book {
 	public void setAdTypeRus(String adTypeRus) {
 		this.adTypeRus = adTypeRus;
 	}
-	
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
 }

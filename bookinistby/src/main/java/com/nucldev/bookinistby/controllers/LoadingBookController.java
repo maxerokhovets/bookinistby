@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.amazonaws.AmazonServiceException;
 import com.nucldev.bookinistby.entities.Book;
 import com.nucldev.bookinistby.entities.Photo;
 import com.nucldev.bookinistby.repositories.BookRepository;
