@@ -52,8 +52,19 @@
 	<tr th:each="comment : ${comments}">
 			<td th:text="${comment.date}"></td>
 			<td th:text="${comment.username}"></td>
-            <td th:text="${comment.message}"></td> 
-                      
+            <td th:text="${comment.message}"></td>
+            <td><form th:if="${#httpServletRequest.getUserPrincipal()}!=null" th:action="@{/profile/loadin}" method="get">
+					<input type="submit" value="Ответить"/>
+				</form>
+            </td>  
+            <td><form th:if="${#httpServletRequest.getRemoteUser()}==${comment.username}" th:action="@{/profile/lo}" method="get">
+					<input type="submit" value="Редактировать"/>
+				</form>
+            </td>
+            <td><form th:if="${#httpServletRequest.getRemoteUser()}==${comment.username}" th:action="@{/profilin}" method="get">
+					<input type="submit" value="Удалить"/>
+				</form>
+            </td>     
     </tr>
     </tbody>
     </table>

@@ -4,32 +4,52 @@
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
 <title>Bookinist.by</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 <body>
-	<h1 th:if="${#httpServletRequest.getUserPrincipal()}!=null">Добро
-		пожаловать, [[${#httpServletRequest.remoteUser}]]!</h1>
-	<h1 th:if="${#httpServletRequest.getUserPrincipal()}==null">Добро
-		пожаловать!</h1>
-
-	<p th:if="${#httpServletRequest.getUserPrincipal()}==null">
-		<a th:href="@{/login}">Вход</a>
-	</p>
-	<p th:if="${#httpServletRequest.getUserPrincipal()}==null">
-		<a th:href="@{/registration}">Регистрация</a>
-	</p>
-
-	<form th:if="${#httpServletRequest.getUserPrincipal()}!=null"
-		th:action="@{/profile}" method="get">
-		<input type="submit" value="Профиль" />
-	</form>
-
-	<p>
-	<form th:if="${#httpServletRequest.getUserPrincipal()}!=null"
-		th:action="@{/logout}" method="post">
-		<input type="submit" value="Выйти" />
-	</form>
-	</p>
 	
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Bookinist.by</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+     
+    </ul>
+           
+    
+    <form class="search-form form-inline my-2 my-lg-0">
+    	<input class="form-control sm-2" type="search" placeholder="Найти книгу" aria-label="Search" > 
+    	<button type="button" class="btn btn-link"><i class="fas fa-search fa-1x "></i></button>
+    </form>
+    <form class="form-inline my-2 my-lg-0" th:if="${#httpServletRequest.getUserPrincipal()}!=null"
+		th:action="@{/profile}" method="get">
+		<input class="btn btn-info mr-2" type="submit" value="Профиль" />
+	</form>
+	<form class="form-inline my-2 my-lg-0" th:if="${#httpServletRequest.getUserPrincipal()}!=null"
+		th:action="@{/logout}" method="post">
+		<input class="btn btn-outline-info" type="submit" value="Выйти" />
+	</form>
+	<div class="dropdown" th:if="${#httpServletRequest.getUserPrincipal()}==null">
+  		<button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    	Вход
+  		</button>
+  		<div class="dropdown-menu dropdown-menu-right" >
+    		<a class="dropdown-item" th:href="@{/login}">Вход</a>
+    		<a class="dropdown-item" th:href="@{/registration}">Регистрация</a>
+  		</div>
+	</div>
+  </div>
+</nav>
+		
+	
+		
 	<table>
 	<tbody>
 	<h3 th:if="${emptyList}">Книг нет</h3>
