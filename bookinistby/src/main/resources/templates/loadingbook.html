@@ -9,7 +9,7 @@
 	<h1>Ваша книга</h1>
 	<div th:if="${titleOrAuthorEmptyError}">Для добавления книги введите имя автора и назавние.</div>
 	<div th:if="${endTimeOfAuctionError}">Задайте время окончания аукциона.</div>
-	<form th:action="@{/profile/addbook}" th:object="${filesFromForm}" enctype="multipart/form-data" method="post">
+	<form th:action="@{/addbook}" th:object="${filesFromForm}" enctype="multipart/form-data" method="post">
 		<div>
 			<label> Название: <input type="text" name="title" size="50" />
 			</label>
@@ -19,13 +19,12 @@
 			</label>
 		</div>
 		<div>
-			<label> Описание: <textarea name="description" cols="50"
-					rows="10"></textarea>
+			<label> Описание: <textarea name="description" cols="50" rows="10"></textarea>
 			</label>
 		</div>
 		<div>
-			<label> Добавить изображения: <input type="file"
-				name="photos" th:field="*{files}" required multiple>
+			<label> Добавить обложку: <input type="file"
+				name="photos" th:field="*{files}">
 			</label>
 		</div>
 		<div>

@@ -8,6 +8,7 @@
 <body>
 	<h1>[[${book.title}]]</h1>
 	<h2>[[${book.author}]]</h2>
+	<p><img th:src="@{${book.coverUrl}}"/></p>
 	
 	<tbody>
 	<tr th:each="photo : ${photos}">

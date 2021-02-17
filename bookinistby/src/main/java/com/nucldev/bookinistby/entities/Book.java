@@ -42,6 +42,7 @@ public class Book {
 	private Date endTimeOfAuction;
 	private UUID uuid;
 	private String status;
+	private String coverUrl;
 	
 	@OneToMany
 	private List<Comment> comments;
@@ -160,5 +161,14 @@ public class Book {
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}
+
+	public String getCoverUrl() {
+		return coverUrl;
+	}
+
+	public void setCoverUrl(String coverUrl) {
+		this.coverUrl = coverUrl;
+	}
+	
 
 }

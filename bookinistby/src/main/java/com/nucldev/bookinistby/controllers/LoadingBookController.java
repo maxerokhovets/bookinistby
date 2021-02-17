@@ -41,14 +41,14 @@ public class LoadingBookController {
 	@Autowired
 	AmazonClient amazonClient;
 	
-	@GetMapping("/profile/loadingbook")
+	@GetMapping("/loadingbook")
 	public String loadingBooks(Model model) {
 		FilesFromForm filesFromForm = new FilesFromForm();
 		model.addAttribute("filesFromForm", filesFromForm);
 		return "loadingbook";
 	}
 	
-	@PostMapping("/profile/addbook")
+	@PostMapping("/addbook")
 	public String addBook(String title, String author, String description,
 			String adType, Integer price, String endTimeOfAuction,
 			@ModelAttribute(value = "filesFromForm") FilesFromForm filesFromForm,
@@ -87,32 +87,50 @@ public class LoadingBookController {
 					book.setEndTimeOfAuction(convertStringInDate(endTimeOfAuction));
 				}
 				book.setUsername(httpServletRequest.getRemoteUser());
-				bookRepository.save(book);
-				List<Photo> photos = new ArrayList<>();
-				for (int i = 0; i < filesFromForm.getFiles().size(); i++) {
-					String str="";
-					try {
-						str = Files.probeContentType(Paths.get(amazonClient.convertMultiPartToFile(filesFromForm.getFiles().get(i)).getAbsolutePath()));
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					if (str!=null) {
-						String[] strings =str.split("/");
-						if (strings[0].equals("image")) {
-							Photo photo = new Photo();
-							photo.setBookUuid(uuid);
-							try {
-								photo.setPhotoUrl(amazonClient.uploadFile(filesFromForm.getFiles().get(i)));
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							photos.add(photo);
+				String string = "";
+				try {
+					string = Files.probeContentType(Paths.get(amazonClient.convertMultiPartToFile(filesFromForm.getFiles().get(0)).getAbsolutePath()));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if (string!=null) {
+					String[] strings = string.split("/");
+					if (strings[0].equals("image")) {
+						try {
+							book.setCoverUrl(amazonClient.uploadFile(filesFromForm.getFiles().get(0)));
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
 					}
 				}
-				photoRepository.saveAll(photos);
+				bookRepository.save(book);
+//				List<Photo> photos = new ArrayList<>();
+//				for (int i = 0; i < filesFromForm.getFiles().size(); i++) {
+//					String str="";
+//					try {
+//						str = Files.probeContentType(Paths.get(amazonClient.convertMultiPartToFile(filesFromForm.getFiles().get(i)).getAbsolutePath()));
+//					} catch (IOException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//					if (str!=null) {
+//						String[] strings =str.split("/");
+//						if (strings[0].equals("image")) {
+//							Photo photo = new Photo();
+//							photo.setBookUuid(uuid);
+//							try {
+//								photo.setPhotoUrl(amazonClient.uploadFile(filesFromForm.getFiles().get(i)));
+//							} catch (Exception e) {
+//								// TODO Auto-generated catch block
+//								e.printStackTrace();
+//							}
+//							photos.add(photo);
+//						}
+//					}
+//				}
+//				photoRepository.saveAll(photos);
 				
 				List<Book> myBooks = bookRepository.findByUsername(httpServletRequest.getRemoteUser());
 				if (myBooks.size()!=0) {

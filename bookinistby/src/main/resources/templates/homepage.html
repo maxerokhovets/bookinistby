@@ -28,36 +28,40 @@
     	<input class="form-control sm-2" type="search" placeholder="Найти книгу" aria-label="Search" > 
     	<button type="button" class="btn btn-link"><i class="fas fa-search fa-1x "></i></button>
     </form>
-    <form class="form-inline my-2 my-lg-0" th:if="${#httpServletRequest.getUserPrincipal()}!=null"
-		th:action="@{/profile}" method="get">
-		<input class="btn btn-info mr-2" type="submit" value="Профиль" />
-	</form>
-	<form class="form-inline my-2 my-lg-0" th:if="${#httpServletRequest.getUserPrincipal()}!=null"
-		th:action="@{/logout}" method="post">
-		<input class="btn btn-outline-info" type="submit" value="Выйти" />
-	</form>
-	<div class="dropdown" th:if="${#httpServletRequest.getUserPrincipal()}==null">
-  		<button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    	Вход
+	<a th:if="${#httpServletRequest.getUserPrincipal()}==null" th:href="@{/login}" class="btn btn-info" type="button">Вход</a>
+	<div class="dropdown" th:if="${#httpServletRequest.getUserPrincipal()}!=null">
+  		<button class="btn btn-outline-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    	<i class="fas fa-book"></i>
   		</button>
   		<div class="dropdown-menu dropdown-menu-right" >
-    		<a class="dropdown-item" th:href="@{/login}">Вход</a>
-    		<a class="dropdown-item" th:href="@{/registration}">Регистрация</a>
+    			<a class="dropdown-item" th:href="@{/profile}">Профиль</a>
+    			<a class="dropdown-item" th:href="@{/loadingbook}">Добавить книгу</a>
+    			<a class="dropdown-item" th:href="@{/loadingbook}">Мои книги</a>
+    			<a class="dropdown-item" th:href="@{/loadingbook}">Избранное</a>
+    			 <div class="dropdown-divider"></div>
+				<a><form  th:action="@{/logout}" method="post">
+					<input class="btn btn-link pl-4" type="submit" value="Выйти" /></form>
+				</a>
   		</div>
 	</div>
   </div>
 </nav>
-		
-	
-		
-	<table>
-	<tbody>
-	<h3 th:if="${emptyList}">Книг нет</h3>
-	<tr th:each="book : ${books}">
-            <td><p><a th:href="@{/book(bookId=${book.id})}">[[${book.title}]]<br>[[${book.author}]]</a></p></td>           
-    </tr>
-    </tbody>
-    </table>
+    
+<div class="row"> 
+    <div class="col pl-4 pt-4" th:each="book : ${books}">
+       	<div class="card" style="width: 18rem;">
+  			<img th:src="@{${book.coverUrl}}" alt="Card image cap" class="card-img-top">
+  			<div class="card-body">
+    			<h5 class="card-title">[[${book.title}]]</h5>
+    			<p class="card-text">[[${book.author}]]</p>
+    			<a th:href="@{/book(bookId=${book.id})}" class="stretched-link"></a>
+  			</div>
+		</div>  	
+    </div>
+</div>
+ 
+   
+
 	
 
 </body>

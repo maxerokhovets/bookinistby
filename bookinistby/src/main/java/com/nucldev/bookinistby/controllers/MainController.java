@@ -1,6 +1,8 @@
 package com.nucldev.bookinistby.controllers;
 
 import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +25,7 @@ public class MainController {
 			model.addAttribute("books", books);
 		}else {
 			model.addAttribute("emtyList", true);
-		}
+		}		
 		return "homepage";		
 	}
 }
