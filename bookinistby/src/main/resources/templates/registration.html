@@ -4,38 +4,41 @@
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
 <title>Регистрация - Bookinist.by</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
-<body>
-	<div th:if="${usernameError}">Пользователь с таким именем уже
-		существует.</div>
-	<div th:if="${emptyFieldsError}">Для регистрации заполните все
-		поля.</div>
-	<div th:if="${notMatchingPasswordsError}">Не совпадают пароли.
-		Попробуйте еще раз.</div>
-	<div th:if="${emailCheckingError}">Проверьте адрес электронной
-		почты. Он должен содержать символ "@".</div>
-	<form th:action="@{/registration}" method="post">
-		<div>
-			<label> Имя пользователя: <input type="text" name="username" />
-			</label>
-		</div>
-		<div>
-			<label> Адрес электронной почты: <input type="email"
-				name="email" />
-			</label>
-		</div>
-		<div>
-			<label> Пароль: <input type="password" name="password" />
-			</label>
-		</div>
-		<div>
-			<label> Повторите пароль: <input type="password"
-				name="password2" />
-			</label>
-		</div>
-		<div>
-			<input type="submit" value="Зарегистрироваться" />
-		</div>
-	</form>
+<body class="text-center">
+	<div class="pt-5">
+		<h1 class="h3 mb-10 fw-normal">Регистрация</h1>
+		<div th:if="${usernameError}" class="text-danger">Пользователь с таким именем уже существует.</div>
+		<div th:if="${emptyFieldsError}" class="text-danger">Для регистрации заполните все поля.</div>
+		<div th:if="${notMatchingPasswordsError}" class="text-danger">Не совпадают пароли. Попробуйте еще раз.</div>
+		<div th:if="${emailCheckingError}" class="text-danger">Проверьте адрес электронной почты. Он должен содержать символ "@".</div>
+		<p>
+		<form th:action="@{/registration}" method="post">
+			<div>
+				<label><input type="text" class="form-control" name="username" placeholder="Имя пользователя" size="50"/>
+				</label>
+			</div>
+			<div>
+				<label><input type="email" class="form-control" name="email" placeholder="Адрес электронной почты" size="50"/>
+				</label>
+			</div>
+			<div>
+				<label><input type="password" class="form-control" name="password" placeholder="Пароль" size="50"/>
+				</label>
+			</div>
+			<div>
+				<label><input type="password" class="form-control" name="password2" placeholder="Повторите пароль" size="50"/>
+				</label>
+			</div>
+			<div>
+				<input class="btn btn-info" type="submit" value="Зарегистрироваться" />
+			</div>
+		</form>
+	</div>
 </body>
 </html>

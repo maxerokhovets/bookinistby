@@ -12,7 +12,7 @@
 </head>
 <body>
 	
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
   <a class="navbar-brand" href="#">Bookinist.by</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -47,8 +47,8 @@
   </div>
 </nav>
     
-<div class="row"> 
-    <div class="col pl-4 pt-4" th:each="book : ${books}">
+<div class="row pl-5 pt-5 pr-5 pb-5"> 
+    <div class="col pl-4 pt-4 pr-4 pb-3" th:each="book : ${books}">
        	<div class="card" style="width: 18rem;">
   			<img th:src="@{${book.coverUrl}}" alt="Card image cap" class="card-img-top">
   			<div class="card-body">
