@@ -11,34 +11,37 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 <body class="text-center">
-	<div class="pt-5">
-		<h1 class="h3 mb-10 fw-normal">Регистрация</h1>
-		<div th:if="${usernameError}" class="text-danger">Пользователь с таким именем уже существует.</div>
-		<div th:if="${emptyFieldsError}" class="text-danger">Для регистрации заполните все поля.</div>
-		<div th:if="${notMatchingPasswordsError}" class="text-danger">Не совпадают пароли. Попробуйте еще раз.</div>
-		<div th:if="${emailCheckingError}" class="text-danger">Проверьте адрес электронной почты. Он должен содержать символ "@".</div>
-		<p>
-		<form th:action="@{/registration}" method="post">
-			<div>
-				<label><input type="text" class="form-control" name="username" placeholder="Имя пользователя" size="50"/>
-				</label>
-			</div>
-			<div>
-				<label><input type="email" class="form-control" name="email" placeholder="Адрес электронной почты" size="50"/>
-				</label>
-			</div>
-			<div>
-				<label><input type="password" class="form-control" name="password" placeholder="Пароль" size="50"/>
-				</label>
-			</div>
-			<div>
-				<label><input type="password" class="form-control" name="password2" placeholder="Повторите пароль" size="50"/>
-				</label>
-			</div>
-			<div>
-				<input class="btn btn-info" type="submit" value="Зарегистрироваться" />
-			</div>
-		</form>
-	</div>
+<div class="pt-5">	
+	<h1 class="h3 mb-10 fw-normal">Регистрация</h1>
+	<div th:if="${usernameError}" class="text-danger">Пользователь с таким именем уже существует.</div>
+	<div th:if="${emptyFieldsError}" class="text-danger">Для регистрации заполните все поля.</div>
+	<div th:if="${notMatchingPasswordsError}" class="text-danger">Не совпадают пароли. Попробуйте еще раз.</div>
+	<div th:if="${emailCheckingError}" class="text-danger">Проверьте адрес электронной почты. Он должен содержать символ "@".</div>
+	<p></p>
+	<form th:action="@{/registration}" method="post">
+		<div>
+			<label><input type="text" class="form-control" name="username" placeholder="Имя пользователя" size="50"/>
+			</label>
+		</div>
+		<div>
+			<label><input type="email" class="form-control" name="email" placeholder="Адрес электронной почты" size="50"/>
+			</label>
+		</div>
+		<div>
+			<label><input type="password" class="form-control" name="password" placeholder="Пароль" size="50"/>
+			</label>
+		</div>
+		<div>
+			<label><input type="password" class="form-control" name="password2" placeholder="Повторите пароль" size="50"/>
+			</label>
+		</div>
+		<div>
+			<input class="btn btn-info" type="submit" value="Зарегистрироваться" />
+		</div>
+	</form>
+</div>
+	
+	
+	
 </body>
 </html>

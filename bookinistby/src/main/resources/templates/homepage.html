@@ -24,7 +24,7 @@
     </ul>
            
     
-    <form class="search-form form-inline my-2 my-lg-0">
+    <form th:action="@{/searching}" method="post" class="search-form form-inline my-2 my-lg-0">
     	<input class="form-control sm-2" type="search" placeholder="Найти книгу" aria-label="Search" > 
     	<button type="button" class="btn btn-link"><i class="fas fa-search fa-1x "></i></button>
     </form>
@@ -36,8 +36,8 @@
   		<div class="dropdown-menu dropdown-menu-right" >
     			<a class="dropdown-item" th:href="@{/profile}">Профиль</a>
     			<a class="dropdown-item" th:href="@{/loadingbook}">Добавить книгу</a>
-    			<a class="dropdown-item" th:href="@{/loadingbook}">Мои книги</a>
-    			<a class="dropdown-item" th:href="@{/loadingbook}">Избранное</a>
+    			<a class="dropdown-item" th:href="@{/mybooks}">Мои книги</a>
+    			<a class="dropdown-item" th:href="@{/starz}">Избранное</a>
     			 <div class="dropdown-divider"></div>
 				<a><form  th:action="@{/logout}" method="post">
 					<input class="btn btn-link pl-4" type="submit" value="Выйти" /></form>

@@ -3,7 +3,6 @@ package com.nucldev.bookinistby.controllers;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -20,9 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.nucldev.bookinistby.entities.Book;
-import com.nucldev.bookinistby.entities.Photo;
 import com.nucldev.bookinistby.repositories.BookRepository;
-import com.nucldev.bookinistby.repositories.PhotoRepository;
 import com.nucldev.bookinistby.service.AmazonClient;
 import com.nucldev.bookinistby.service.FilesFromForm;
 
@@ -34,9 +31,6 @@ public class LoadingBookController {
 	
 	@Autowired
 	HttpServletRequest httpServletRequest;
-	
-	@Autowired
-	PhotoRepository photoRepository;
 	
 	@Autowired
 	AmazonClient amazonClient;
@@ -65,6 +59,7 @@ public class LoadingBookController {
 				book.setTitle(title);
 				book.setAuthor(author);
 				book.setDescription(description);
+				book.setCreationDate(new Date());
 				book.setAdType(adType);
 				switch (adType) {
 				case "free":
@@ -106,31 +101,6 @@ public class LoadingBookController {
 					}
 				}
 				bookRepository.save(book);
-//				List<Photo> photos = new ArrayList<>();
-//				for (int i = 0; i < filesFromForm.getFiles().size(); i++) {
-//					String str="";
-//					try {
-//						str = Files.probeContentType(Paths.get(amazonClient.convertMultiPartToFile(filesFromForm.getFiles().get(i)).getAbsolutePath()));
-//					} catch (IOException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-//					if (str!=null) {
-//						String[] strings =str.split("/");
-//						if (strings[0].equals("image")) {
-//							Photo photo = new Photo();
-//							photo.setBookUuid(uuid);
-//							try {
-//								photo.setPhotoUrl(amazonClient.uploadFile(filesFromForm.getFiles().get(i)));
-//							} catch (Exception e) {
-//								// TODO Auto-generated catch block
-//								e.printStackTrace();
-//							}
-//							photos.add(photo);
-//						}
-//					}
-//				}
-//				photoRepository.saveAll(photos);
 				
 				List<Book> myBooks = bookRepository.findByUsername(httpServletRequest.getRemoteUser());
 				if (myBooks.size()!=0) {
@@ -138,7 +108,7 @@ public class LoadingBookController {
 				}else {
 					model.addAttribute("emtyMyBooksList", true);
 				}
-				return "redirect:/profile/mybooks";
+				return "redirect:/mybooks";
 			}
 		}
 	}

@@ -16,10 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nucldev.bookinistby.entities.Book;
 import com.nucldev.bookinistby.entities.Comment;
-import com.nucldev.bookinistby.entities.Photo;
 import com.nucldev.bookinistby.repositories.BookRepository;
 import com.nucldev.bookinistby.repositories.CommentRepository;
-import com.nucldev.bookinistby.repositories.PhotoRepository;
+
 
 @Controller
 public class BookController {
@@ -29,9 +28,6 @@ public class BookController {
 	
 	@Autowired
 	HttpServletRequest httpServletRequest;
-	
-	@Autowired
-	PhotoRepository photoRepository;
 	
 	@Autowired
 	CommentRepository commentRepository;
@@ -49,8 +45,6 @@ public class BookController {
 				})
 				.collect(Collectors.toList());
 		model.addAttribute("comments", reversedComments);
-		List<Photo> photos = photoRepository.findByBookUuid(book.getUuid());
-		model.addAttribute("photos", photos);
 		if (httpServletRequest.getRemoteUser()!= null && httpServletRequest.getRemoteUser().equals(book.getUsername())) {
 			model.addAttribute("thisUserBookFlag", true);
 		}
@@ -78,8 +72,6 @@ public class BookController {
 				.collect(Collectors.toList());
 		model.addAttribute("comments", reversedComments);
 		model.addAttribute("book", book);
-		List<Photo> photos = photoRepository.findByBookUuid(book.getUuid());
-		model.addAttribute("photos", photos);
 		if (httpServletRequest.getRemoteUser()!= null && httpServletRequest.getRemoteUser().equals(book.getUsername())) {
 			model.addAttribute("thisUserBookFlag", true);
 		}

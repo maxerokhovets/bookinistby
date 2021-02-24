@@ -21,7 +21,7 @@ public class MyBooksController {
 	@Autowired
 	HttpServletRequest httpServletRequest;
 	
-	@GetMapping("profile/mybooks")
+	@GetMapping("/mybooks")
 	public String book(Model model) {
 		List<Book> myBooks = bookRepository.findByUsername(httpServletRequest.getRemoteUser());
 		if (myBooks.size()!=0) {
