@@ -25,12 +25,12 @@
            
     
     <form th:action="@{/searching}" method="post" class="search-form form-inline my-2 my-lg-0">
-    	<input class="form-control sm-2" type="search" placeholder="Найти книгу" aria-label="Search" > 
-    	<button type="button" class="btn btn-link"><i class="fas fa-search fa-1x "></i></button>
+    	<input name="searchQuery" class="form-control sm-2" type="search" placeholder="Найти книгу" aria-label="Search" > 
+    	<button type="submit" class="btn btn-link"><i class="fas fa-search fa-1x "></i></button>
     </form>
 	<a th:if="${#httpServletRequest.getUserPrincipal()}==null" th:href="@{/login}" class="btn btn-info" type="button">Вход</a>
 	<div class="dropdown" th:if="${#httpServletRequest.getUserPrincipal()}!=null">
-  		<button class="btn btn-outline-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  		<button class="btn btn-outline-info dropdown-toggle" type="submit" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     	<i class="fas fa-book"></i>
   		</button>
   		<div class="dropdown-menu dropdown-menu-right" >
@@ -47,9 +47,10 @@
   </div>
 </nav>
     
+<div th:if="${emptyBooksList}"><h2>Книг нет</h2></div>
 <div class="row pl-5 pt-5 pr-5 pb-5"> 
     <div class="col pl-4 pt-4 pr-4 pb-3" th:each="book : ${books}">
-       	<div class="card" style="width: 18rem;">
+       	<div class="card" style="width: 13rem;">
   			<img th:src="@{${book.coverUrl}}" alt="Card image cap" class="card-img-top">
   			<div class="card-body">
     			<h5 class="card-title">[[${book.title}]]</h5>
